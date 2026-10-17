@@ -8,7 +8,11 @@ import (
 	"strings"
 )
 
-func startRepl() {
+type config struct {
+	commands map[string]cliCommand
+}
+
+func startRepl(cfg *config) {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for {
@@ -24,13 +28,13 @@ func startRepl() {
 		}
 
 		commandInput := splitInput[0]
-		command, ok := getCommands()[commandInput]
+		command, ok := cfg.commands[commandInput]
 		if !ok {
 			fmt.Println("Unknown command")
 			continue
 		}
 
-		command.callback()
+		command.callback(cfg)
 	}
 }
 
@@ -41,7 +45,7 @@ func cleanInput(text string) []string {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func() error
+	callback    func(*config) error
 }
 
 func getCommands() map[string]cliCommand {
