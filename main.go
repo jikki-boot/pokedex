@@ -3,7 +3,7 @@ package main
 import (
 	"time"
 
-	"git.jaxon.io/jaxon/pokedex/internal/pokeapi"
+	"git.jaxon.io/jaxon-boot/pokedex/internal/pokeapi"
 )
 
 func main() {

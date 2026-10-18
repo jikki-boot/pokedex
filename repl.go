@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"git.jaxon.io/jaxon/pokedex/internal/pokeapi"
+	"git.jaxon.io/jaxon-boot/pokedex/internal/pokeapi"
 )
 
 type config struct {
