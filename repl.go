@@ -6,10 +6,15 @@ import (
 	"log"
 	"os"
 	"strings"
+
+	"git.jaxon.io/jaxon/pokedex/internal/pokeapi"
 )
 
 type config struct {
-	commands map[string]cliCommand
+	commands         map[string]cliCommand
+	pokeapiClient    pokeapi.Client
+	nextLocationsURL *string
+	prevLocationsURL *string
 }
 
 func startRepl(cfg *config) {
@@ -28,13 +33,13 @@ func startRepl(cfg *config) {
 		}
 
 		commandInput := splitInput[0]
-		command, ok := cfg.commands[commandInput]
-		if !ok {
+		if command, exists := cfg.commands[commandInput]; exists {
+			if err := command.callback(cfg); err != nil {
+				fmt.Println(err)
+			}
+		} else {
 			fmt.Println("Unknown command")
-			continue
 		}
-
-		command.callback(cfg)
 	}
 }
 
@@ -59,6 +64,16 @@ func getCommands() map[string]cliCommand {
 			name:        "help",
 			description: "Displays a help message",
 			callback:    commandHelp,
+		},
+		"map": {
+			name:        "map",
+			description: "Get the next page of locations",
+			callback:    commandMapf,
+		},
+		"mapb": {
+			name:        "mapb",
+			description: "Get the previous page of locations",
+			callback:    commandMapb,
 		},
 	}
 }
