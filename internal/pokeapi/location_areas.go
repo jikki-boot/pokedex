@@ -28,7 +28,7 @@ func (c *Client) GetLocationAreas(pageURL *string) (Resource, error) {
 	return resource, nil
 }
 
-func (c *Client) GetPokemon(area string) ([]Pokemon, error) {
+func (c *Client) GetPokemonList(area string) ([]Pokemon, error) {
 	url := fmt.Sprintf("%s/%s", LocationAreasBaseURL, area)
 
 	data, err := c.Get(url)

@@ -15,6 +15,7 @@ func main() {
 	cfg := &config{
 		commands:         getCommands(),
 		pokeapiClient:    pokeapiClient,
+		pokedex:          make(map[string]pokeapi.Pokemon),
 		nextLocationsURL: &locationsBaseURL,
 		prevLocationsURL: nil,
 	}
