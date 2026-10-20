@@ -2,16 +2,11 @@ package pokeapi
 
 import (
 	"encoding/json"
-	"net/http"
 )
 
 const (
 	LocationAreasBaseURL = baseURL + "/location-area"
 )
-
-// func (c *Client) LocationAreasBaseURL() string {
-// 	return LocationAreasBaseURL
-// }
 
 func (c *Client) GetLocationAreas(pageURL *string) (Resource, error) {
 	url := LocationAreasBaseURL
@@ -19,20 +14,13 @@ func (c *Client) GetLocationAreas(pageURL *string) (Resource, error) {
 		url = *pageURL
 	}
 
-	req, err := http.NewRequest(http.MethodGet, url, nil)
+	data, err := c.Get(url)
 	if err != nil {
 		return Resource{}, err
 	}
-
-	res, err := c.HttpClient.Do(req)
-	if err != nil {
-		return Resource{}, err
-	}
-	defer res.Body.Close()
 
 	var resource Resource
-	decoder := json.NewDecoder(res.Body)
-	if err := decoder.Decode(&resource); err != nil {
+	if err := json.Unmarshal(data, &resource); err != nil {
 		return Resource{}, err
 	}
 
