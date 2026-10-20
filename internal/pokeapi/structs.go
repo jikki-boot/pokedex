@@ -12,14 +12,8 @@ type Result struct {
 	URL  string `json:"url"`
 }
 
-// TODO: flesh out full response structure
 type LocationArea struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
-	// GameIndex            int                   `json:"game_index"`
-	// EncounterMethodRates []EncounterMethodRate `json:"encounter_method_rates"`
-	// Location             Location              `json:"location"`
-	// Names                []Name                `json:"names"`
+	Name              string             `json:"name"`
 	PokemonEncounters []PokemonEncounter `json:"pokemon_encounters"`
 }
 
@@ -28,35 +22,19 @@ type PokemonEncounter struct {
 }
 
 type Pokemon struct {
-	ID             int           `json:"id"`
-	Name           string        `json:"name"`
-	BaseExperience int           `json:"base_experience"`
-	Height         int           `json:"height"`
-	Weight         int           `json:"weight"`
-	Stats          []PokemonStat `json:"stats"`
-	Types          []PokemonType `json:"types"`
+	Name           string `json:"name"`
+	BaseExperience int    `json:"base_experience"`
+	Height         int    `json:"height"`
+	Weight         int    `json:"weight"`
+	Stats          []struct {
+		Stat struct {
+			Name string `json:"name"`
+		} `json:"stat"`
+		BaseStat int `json:"base_stat"`
+	} `json:"stats"`
+	Types []struct {
+		Type struct {
+			Name string `json:"name"`
+		} `json:"type"`
+	} `json:"types"`
 }
-
-type PokemonStat struct {
-	Stat     Stat `json:"stat"`
-	Effort   int  `json:"effort"`
-	BaseStat int  `json:"base_stat"`
-}
-
-type Stat struct {
-	Name string `json:"name"`
-}
-
-type PokemonType struct {
-	Slot int  `json:"slot"`
-	Type Type `json:"type"`
-}
-
-type Type struct {
-	Name string `json:"name"`
-}
-
-// type EncounterMethodRate struct {
-// 	EncounterMethod EncounterMethod           `json:"encounter_method"`
-// 	VersionDetails  []EncounterVersionDetails `json:"version_details"`
-// }

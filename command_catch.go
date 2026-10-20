@@ -13,7 +13,6 @@ func commandCatch(cfg *config, args ...string) error {
 
 	pokemonName := args[0]
 
-	// TODO: get from already cached data instead
 	pokemon, err := cfg.pokeapiClient.GetPokemon(pokemonName)
 	if err != nil {
 		return err
