@@ -20,11 +20,9 @@ func commandCatch(cfg *config, args ...string) error {
 
 	fmt.Printf("Throwing a Pokeball at %s...\n", pokemon.Name)
 
-	baseProbability := rand.Float64()
-	// TODO: scale success chance inversely with pokemon's base XP
-	probability := baseProbability
+	selectedValue := rand.IntN(pokemon.BaseExperience)
 
-	if probability > 0.5 {
+	if selectedValue < 40 {
 		fmt.Printf("%s was caught!\n", pokemon.Name)
 		fmt.Println("You may now inspect it with the inspect command.")
 		cfg.pokedex[pokemon.Name] = pokemon
